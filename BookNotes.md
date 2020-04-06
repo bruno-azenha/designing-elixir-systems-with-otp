@@ -31,7 +31,7 @@ One of the benefits of using a library such as `URL` is that string manipulation
 
 There's a really nice note about how even though we only see the final result, there were lots of stumbles on the way.
 
-# Chapter 4
+# Chapter 5
 
 > If a program is a story, functions represent the verbs, a critical part of your vocabulary. Your function arguments are nouns. Programming is about naming things well. Too many programmers are afraid of long names. Usually, that’s a mistake. The best name is as long as it needs to be.
 
@@ -43,5 +43,7 @@ of good Elixir code often goes something like this:
 • Fallback to with/1 when you need to embrace failure.
 • To shape code that’s difficult to compose, use tokens.
 
+## Chapter 5
 
-
+Remember about the named setup functions and its usage inside of describe blocks
+ 
