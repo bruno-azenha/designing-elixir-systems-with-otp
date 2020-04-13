@@ -2,6 +2,25 @@ defmodule Mastery.Boundary.QuizSession do
   alias Mastery.Core.Quiz
   alias Mastery.Core.Response
 
+  def child_spec({quiz, email}) do
+    %{
+      id: {__MODULE__, {quiz.title, email}},
+      start: {__MODULE__, :start_link, [{quiz, email}]},
+      restart: :temporary
+    }
+  end
+
+  def start_link({quiz, email}) do
+    GenServer.start_link(__MODULE__, {quiz, email}, name: via({quiz.title, email}))
+  end
+
+  def take_quiz(quiz, email) do
+    DynamicSupervisor.start_child(
+      Mastery.Supervisor.QuizSession,
+      {__MODULE__, {quiz, email}}
+    )
+  end
+
   use GenServer
 
   def init({quiz, email}) do
@@ -30,11 +49,15 @@ defmodule Mastery.Boundary.QuizSession do
     }
   end
 
-  def select_question(session) do
-    GenServer.call(session, :select_question)
+  def select_question(name) do
+    GenServer.call(via(name), :select_question)
   end
 
-  def answer_question(session, answer) do
-    GenServer.call(session, {:answer_question, answer})
+  def answer_question(name, answer) do
+    GenServer.call(via(name), {:answer_question, answer})
+  end
+
+  def via({_title, _email} = name) do
+    {:via, Registry, {Mastery.Registry.QuizSession, name}}
   end
 end
