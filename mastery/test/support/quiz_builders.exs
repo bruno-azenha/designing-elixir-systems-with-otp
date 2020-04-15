@@ -12,7 +12,6 @@ defmodule QuizBuilders do
 
   alias Mastery.Core.Template
   alias Mastery.Core.Question
-  alias Mastery.Core.Response
   alias Mastery.Core.Quiz
 
   def template_fields(overrides \\ []) do

@@ -49,7 +49,7 @@ defmodule Mastery.Boundary.QuizSession do
   defp maybe_finish(quiz, email) do
     {
       :reply,
-      {quiz.current_question.asked, quiz.last_response, quiz.last_response.correct},
+      {quiz.current_question.asked, quiz.last_response.correct},
       {quiz, email}
     }
   end
